@@ -15,6 +15,7 @@ class Space
     translations.each do |t|
       next_x = coordinate[0] + t[0]
       next_y = coordinate[1] + t[1]
+      # numbers...slightly off jan?
       next if next_x < 1 || next_y < 1 || next_x > 8 || next_y > 8 || previous_spaces.include?([next_x, next_y])
 
       possible << [next_x, next_y]
@@ -22,11 +23,11 @@ class Space
     possible
   end
 
-  def calc_spaces # currently spinning endlessly
+  def calc_spaces(connected_coordinates, previous_spaces) # currently spinning endlessly
     p 'made it to calc_spaces'
     spaces = []
-    new_previous = @previous_spaces + @connected_coordinates
-    @connected_coordinates.each do |coordinate|
+    new_previous = previous_spaces + connected_coordinates
+    connected_coordinates.each do |coordinate|
       p 'started iterating'
       spaces << Space.new(coordinate, new_previous)
     end
@@ -39,6 +40,6 @@ class Space
     @name = nil
     @previous_spaces = previous_spaces
     @connected_coordinates = calc_coordinates(coordinate, previous_spaces)
-    @connected_spaces = calc_spaces # careful here
+    @connected_spaces = calc_spaces(@connected_coordinates, @previous_spaces)
   end
 end
