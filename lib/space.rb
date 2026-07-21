@@ -2,7 +2,7 @@
 
 # this is for each square on the board that we need to generate:
 class Space
-  attr_accessor :x, :y, :name, :connected_coordinates
+  attr_accessor :x, :y, :name, :connected_coordinates, :connected_spaces
 
   def calc_coordinates(coordinate, previous_spaces) # rubocop:disable Metrics/MethodLength
     possible = []
@@ -15,7 +15,6 @@ class Space
     translations.each do |t|
       next_x = coordinate[0] + t[0]
       next_y = coordinate[1] + t[1]
-      # numbers...slightly off jan?
       next if next_x < 1 || next_y < 1 || next_x > 8 || next_y > 8 || previous_spaces.include?([next_x, next_y])
 
       possible << [next_x, next_y]
@@ -24,12 +23,16 @@ class Space
   end
 
   def calc_spaces(connected_coordinates, previous_spaces) # currently spinning endlessly
-    p 'made it to calc_spaces'
     spaces = []
-    new_previous = previous_spaces + connected_coordinates
+    new_previous = (previous_spaces + connected_coordinates).uniq
+    p "new_previous: #{new_previous}"
+    # use debug_counter to stop iteration if needed
     connected_coordinates.each do |coordinate|
-      p 'started iterating'
+      p "started iterating: tis the coo: #{coordinate}"
+      # guard cluase?
+
       spaces << Space.new(coordinate, new_previous)
+      # spaces << coordinate # stopping the initialize to test numerb of items made
     end
     spaces
   end
