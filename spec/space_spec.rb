@@ -32,4 +32,10 @@ describe 'calc_spaces' do
     test.connected_spaces = test.calc_spaces([[1, 1]], [[3, 2], [2, 3]])
     expect(test.connected_spaces[0].connected_spaces.length).to eq(0)
   end
+
+  it 'doesn\'t spin out of control when given a central space to start with' do
+    test = Space.new([99, 99])
+    checker = test.connected_spaces = test.calc_spaces([[3, 3]], [[3, 3]])
+    expect(checker.length).to eq(8)
+  end
 end
