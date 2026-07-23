@@ -9,7 +9,7 @@ describe 'knight_moves' do
     # currently x and y are being separated?
   end
 
-  xit 'returns a trail of 2 if the start space is one move from the end space' do
+  it 'returns a trail of 2 if the start space is one move from the end space' do
     expect(true).to eq(true)
   end
 end
