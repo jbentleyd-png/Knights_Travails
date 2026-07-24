@@ -44,7 +44,7 @@ class Space
   def initialize(coordinate, previous_spaces)
     @x = coordinate[0]
     @y = coordinate[1]
-    @name = nil
+    @name = coordinate
     @previous_spaces = previous_spaces
     @connected_coordinates = calc_coordinates(coordinate, previous_spaces)
     # @connected_spaces = calc_spaces(@connected_coordinates, @previous_spaces)
