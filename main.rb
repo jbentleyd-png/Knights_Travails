@@ -24,13 +24,6 @@ def knight_moves(start_space, end_space, previous_spaces = [])
 
   start_map_space = Space.new(start_space, previous_spaces)
 
-  # if start_map_space.connected_coordinates.include?(end_space)
-  #  puts 'entered guard clause'
-  #  output_results(start_map_space, end_space)
-  #  p "guard clause reuturns #{start_map_space.previous_spaces + [end_space]}"
-  #  return start_map_space.previous_spaces + [end_space]
-  # end
-
   # loop for BFS:
   search_queue = [start_map_space]
 
@@ -47,12 +40,5 @@ def knight_moves(start_space, end_space, previous_spaces = [])
   p "previous spaces: #{search_queue[0].previous_spaces}"
   path = search_queue[0].previous_spaces + [search_queue[0].name] + [end_space]
   p path
-  return path
-
-  # recursion:
-  start_map_space.connected_coordinates.each do |coordinate|
-    path = knight_moves(coordinate, end_space, start_map_space.previous_spaces)
-    return path if path.include? end_space
-  end
-  # and how do we make sure the incorrect branches terminate as soon as we find the fastest one?
+  path
 end
