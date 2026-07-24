@@ -24,6 +24,12 @@ describe 'knight_moves' do
   it "doesn't spin until the end of time if end_space is two away and options are manifold." do
     test = knight_moves([4, 4], [1, 1])
     p "test: #{test}"
-    expect(test.length + 1).to eq(3)
+    expect(test.length).to eq(3)
+  end
+
+  it "works when it's three moves away" do
+    test = knight_moves([5, 6], [1, 1])
+    p "test: #{test}"
+    expect(test.length).to eq(4)
   end
 end
