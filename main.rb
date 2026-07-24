@@ -9,15 +9,17 @@ def instant_match_display(start_space)
 end
 
 def output_results(space_object, end_space)
-  puts "Made it to the goal in #{space_object.previous_spaces.length} moves!"
+  move_word = space_object.previous_spaces.length.zero? ? 'move' : 'moves'
+  print 'Made it to the goal in '
+  puts "#{space_object.previous_spaces.length + 1} #{move_word}!".blue
   space_object.previous_spaces.each do |space|
-    p space
+    p letter_convert(space)
   end
-  p end_space
+  p letter_convert(space_object.name)
+  p letter_convert(end_space)
 end
 
 def knight_moves(start_space, end_space, previous_spaces = [])
-  puts "entered knight's moves"
   if start_space == end_space
     instant_match_display(start_space)
     return [start_space]
@@ -36,6 +38,7 @@ def knight_moves(start_space, end_space, previous_spaces = [])
     end
     search_queue.shift
   end
+  output_results(search_queue[0], end_space)
   search_queue[0].previous_spaces + [search_queue[0].name] + [end_space]
 end
 
@@ -45,19 +48,12 @@ def integer?(str)
 end
 
 def input_check?(input)
-  puts 'length check'
   return false unless input.length == 2
 
-  puts 'passed'
-  puts 'letter check'
   letter_list = %w[A B C D E F G H]
   return false unless letter_list.include?(input[0])
 
-  puts 'passed'
-  puts 'int check'
   return false unless Integer(input[1]) >= 1 && Integer(input[1]) <= 8 && integer?(input[1])
-
-  puts 'passed'
 
   true
 end
@@ -108,7 +104,6 @@ end
 
 def opening_message
   puts 'Welcome to Knight\'s Travails!'.yellow
-  puts ''
   puts 'This program will find you the quickest route for a Knight piece to take from any square to another.'.blue
   puts ''
 end
@@ -117,22 +112,23 @@ def user_module
   print_solid_chess_board
   opening_message
 
-  print 'Please enter a start position for the Knight: '
+  print 'Please enter a start position for the Knight: '.yellow
   start_space = gets.chomp.upcase
   until input_check?(start_space)
-    print 'Enter a valid start position: '
+    print 'Enter a valid start position: '.red
     start_space = gets.chomp.upcase
   end
 
-  print 'Please enter an end position for the Knight: '
+  print 'Please enter an end position for the Knight: '.yellow
   end_space = gets.chomp.upcase
   until input_check?(end_space)
-    print 'Enter a valid end position: '
+    print 'Enter a valid end position: '.red
     end_space = gets.chomp.upcase
   end
 
   start_space = number_convert(start_space)
   end_space = number_convert(end_space)
+  knight_moves(start_space, end_space)
 end
 
-user_module
+user_module # comment out to run tests
