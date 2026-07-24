@@ -2,6 +2,23 @@
 
 require_relative '../main'
 
+describe 'letter_convert' do
+  it 'converts 1,1 to A1' do
+    expect(letter_convert([1, 1])).to eq('A1')
+  end
+  it 'converts 4,4 to D4' do
+    expect(letter_convert([4, 4])).to eq('D4')
+  end
+end
+
+describe 'number_convert' do
+  it 'converts A1 to 1,1' do
+    expect(number_convert('A1')).to eq([1, 1])
+  end
+  it 'converts 4,4 to D4' do
+    expect(number_convert('D4')).to eq([4, 4])
+  end
+end
 describe 'knight_moves' do
   it 'returns a trail of 1 if the start space equals the end space' do
     test = knight_moves([3, 3], [3, 3])

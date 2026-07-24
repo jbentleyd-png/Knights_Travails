@@ -2,6 +2,23 @@
 
 require_relative 'lib/space'
 
+def letter_convert(coordinate)
+  output = ''
+  letter_list = %w[A B C D E F G H]
+  output += letter_list[coordinate[0] - 1]
+  output += coordinate[1].to_s
+  output
+end
+
+def number_convert(chess_space)
+  letter_list = %w[A B C D E F G H]
+  arr_version = chess_space.chars
+  col = letter_list.index(arr_version[0]) + 1
+  arr_version[0] = col
+  arr_version[1] = arr_version[1].to_i
+  arr_version
+end
+
 def instant_match_display(start_space)
   puts 'Made it to the goal in 0 moves!'
   p start_space
