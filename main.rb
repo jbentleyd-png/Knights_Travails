@@ -73,7 +73,6 @@ end
 def number_convert(chess_space)
   letter_list = %w[A B C D E F G H]
   arr_version = chess_space.chars
-  p "array version: #{arr_version}"
   col = letter_list.index(arr_version[0]) + 1
   arr_version[0] = col
   arr_version[1] = arr_version[1].to_i
@@ -117,17 +116,23 @@ end
 def user_module
   print_solid_chess_board
   opening_message
+
   print 'Please enter a start position for the Knight: '
   start_space = gets.chomp.upcase
-  loop do
-    break if input_check?(start_space)
-
-    print 'Enter a VALID start position: '
+  until input_check?(start_space)
+    print 'Enter a valid start position: '
     start_space = gets.chomp.upcase
   end
 
   print 'Please enter an end position for the Knight: '
-  end_space = number_convert(gets.chomp.upcase)
+  end_space = gets.chomp.upcase
+  until input_check?(end_space)
+    print 'Enter a valid end position: '
+    end_space = gets.chomp.upcase
+  end
+
+  start_space = number_convert(start_space)
+  end_space = number_convert(end_space)
 end
 
-# user_module
+user_module
