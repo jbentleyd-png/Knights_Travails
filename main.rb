@@ -23,16 +23,21 @@ def knight_moves(start_space, end_space, previous_spaces = [])
   end
 
   start_map_space = Space.new(start_space, previous_spaces + [start_space])
+  p "current space = #{start_map_space.name}"
 
   if start_map_space.connected_coordinates.include?(end_space)
     puts 'entered guard clause'
     output_results(start_map_space, end_space)
+    p "guard clause reuturns #{start_map_space.previous_spaces + [end_space]}"
     return start_map_space.previous_spaces + [end_space]
   end
   # recursion:
   start_map_space.connected_coordinates.each do |coordinate|
-    knight_moves(coordinate, end_space, start_map_space.previous_spaces)
+    path = knight_moves(coordinate, end_space, start_map_space.previous_spaces)
+    return path if path.include? end_space
+    # return something HERE?
   end
+  # return something HERE?
   # where do we return up the chain?
   # and how do we make sure the incorrect branches terminate as soon as we find the fastest one?
 end
