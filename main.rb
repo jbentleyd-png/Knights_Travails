@@ -29,7 +29,6 @@ def knight_moves(start_space, end_space, previous_spaces = [])
   search_queue = [start_map_space]
 
   loop do
-    p "current spot: #{search_queue[0].name}"
     break if search_queue[0].connected_coordinates.include?(end_space)
 
     search_queue[0].connected_coordinates.each do |coordinate|
@@ -37,14 +36,31 @@ def knight_moves(start_space, end_space, previous_spaces = [])
     end
     search_queue.shift
   end
-  p "exited at: #{search_queue[0].name}"
-  p "previous spaces: #{search_queue[0].previous_spaces}"
-  path = search_queue[0].previous_spaces + [search_queue[0].name] + [end_space]
-  p path
-  path
+  search_queue[0].previous_spaces + [search_queue[0].name] + [end_space]
 end
 
 # USER DISPLAY SECTION:
+def integer?(str)
+  !Integer(str, exception: false).nil?
+end
+
+def input_check?(input)
+  puts 'length check'
+  return false unless input.length == 2
+
+  puts 'passed'
+  puts 'letter check'
+  letter_list = %w[A B C D E F G H]
+  return false unless letter_list.include?(input[0])
+
+  puts 'passed'
+  puts 'int check'
+  return false unless Integer(input[1]) >= 1 && Integer(input[1]) <= 8 && integer?(input[1])
+
+  puts 'passed'
+
+  true
+end
 
 def letter_convert(coordinate)
   output = ''
@@ -57,13 +73,14 @@ end
 def number_convert(chess_space)
   letter_list = %w[A B C D E F G H]
   arr_version = chess_space.chars
+  p "array version: #{arr_version}"
   col = letter_list.index(arr_version[0]) + 1
   arr_version[0] = col
   arr_version[1] = arr_version[1].to_i
   arr_version
 end
 
-def print_solid_chess_board
+def print_solid_chess_board # rubocop:disable Metrics/MethodLength
   files = %w[A B C D E F G H]
 
   # Top labels
@@ -91,12 +108,26 @@ def print_solid_chess_board
 end
 
 def opening_message
-  puts 'Welcome to Knight\'s Travails!'.blue
+  puts 'Welcome to Knight\'s Travails!'.yellow
+  puts ''
+  puts 'This program will find you the quickest route for a Knight piece to take from any square to another.'.blue
+  puts ''
 end
 
 def user_module
   print_solid_chess_board
   opening_message
+  print 'Please enter a start position for the Knight: '
+  start_space = gets.chomp.upcase
+  loop do
+    break if input_check?(start_space)
+
+    print 'Enter a VALID start position: '
+    start_space = gets.chomp.upcase
+  end
+
+  print 'Please enter an end position for the Knight: '
+  end_space = number_convert(gets.chomp.upcase)
 end
 
-user_module
+# user_module

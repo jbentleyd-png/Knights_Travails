@@ -2,6 +2,19 @@
 
 require_relative '../main'
 
+describe 'input_check?' do
+  it 'returns true for A1' do
+    expect(input_check?('A1')).to eq(true)
+  end
+
+  it 'fails A11' do
+    expect(input_check?('A11')).to eq(false)
+  end
+
+  it 'fails I5' do
+    expect(input_check?('A11')).to eq(false)
+  end
+end
 describe 'letter_convert' do
   it 'converts 1,1 to A1' do
     expect(letter_convert([1, 1])).to eq('A1')
