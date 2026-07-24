@@ -10,6 +10,7 @@ describe 'knight_moves' do
   end
 
   it 'returns a trail of 2 if the start space is one move from the end space' do
-    expect(true).to eq(true)
+    test = knight_moves([3, 3], [2, 5])
+    expect(test).to eq([[3, 3], [2, 5]])
   end
 end
